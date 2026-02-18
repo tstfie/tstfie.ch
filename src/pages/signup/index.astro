@@ -72,31 +72,8 @@ import "../../styles/utilities.css"
     <Footer/>
   </container>
   <script type="module">
-    const form = document.getElementById("email-form");
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      try {
-        const res = await await fetch("/api/signup", { method: "POST", body: formData });
-
-        if (!res.ok) {
-          let errorCode = 'server_error';
-          try {
-            const body = await res.json();
-            errorCode = body?.error || errorCode;
-          } catch (err) {
-            // non-JSON / empty response
-          }
-          window.location.href = `/signup/error?code=${encodeURIComponent(errorCode)}`;
-          return;
-        }
-
-        window.location.href = "/signup/confirm";
-      } catch (err) {
-        window.location.href = "/signup/error?code=network_error";
-      }
-    });
+form.action = "/api/signup";
+form.method = "POST";
   </script>
 </body>
 </html>
