@@ -27,6 +27,7 @@ function jsonSuccess(data: Record<string, unknown> = {}) {
 /* ================================
    POST handler
 ================================= */
+console.log("POST handler reached");
 export const POST: APIRoute = async ({ request }) => {
   try {
     const formData = await request.formData();
@@ -113,13 +114,8 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (!brevoRes.ok) {
       const text = await brevoRes.text();
-      return new Response(
-        JSON.stringify({
-          status: brevoRes.status,
-          body: text
-        }),
-        { status: 500 }
-      );
+      console.error("Brevo API failed:", brevoRes.status, text);
+      return jsonError("brevo_failed", 500);
     }
 
     /* ================================
