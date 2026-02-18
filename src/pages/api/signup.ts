@@ -27,8 +27,8 @@ function jsonSuccess(data: Record<string, unknown> = {}) {
 /* ================================
    POST handler
 ================================= */
-console.log("POST handler reached");
 export const POST: APIRoute = async ({ request }) => {
+  console.log("POST handler reached");
   try {
     const formData = await request.formData();
 
