@@ -1,6 +1,9 @@
-import "dotenv/config";
 export const prerender = false;
 import type { APIRoute } from "astro";
+
+export const GET: APIRoute = async () => {
+  return new Response("Method Not Allowed", { status: 405 });
+};
 
 console.log("ENV CHECK:", !!process.env.BREVO_API_KEY);
 
@@ -110,8 +113,13 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (!brevoRes.ok) {
       const text = await brevoRes.text();
-      console.error("Brevo API failed:", brevoRes.status, text);
-      return jsonError("brevo_failed", 500);
+      return new Response(
+        JSON.stringify({
+          status: brevoRes.status,
+          body: text
+        }),
+        { status: 500 }
+      );
     }
 
     /* ================================
