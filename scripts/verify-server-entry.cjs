@@ -43,7 +43,11 @@ if (!found) {
 // Copy the entry into the function root so the handler path is reliable
 const funcRoot = path.join(root, '.vercel', 'output', 'functions', '_render.func');
 if (!fs.existsSync(funcRoot)) {
-  fs.mkdirSync(funcRoot, { recursive: true });
+  try {
+    fs.mkdirSync(funcRoot, { recursive: true });
+  } catch (err) {
+    if (err.code !== 'EEXIST') throw err;
+  }
 }
 
 const target = path.join(funcRoot, 'entry.mjs');

@@ -25,8 +25,13 @@ if (!fs.existsSync(entry)) {
   fail('Astro server entry not produced (dist/server/entry.mjs)');
 }
 
+
 const destBase = path.join(root, '.vercel', 'output', 'functions', '_render.func', 'apps', 'main', 'dist', 'server');
-fs.mkdirSync(destBase, { recursive: true });
+try {
+  fs.mkdirSync(destBase, { recursive: true });
+} catch (err) {
+  if (err.code !== 'EEXIST') throw err;
+}
 
 const files = fs.readdirSync(path.join(root, 'dist', 'server'));
 for (const f of files) {
