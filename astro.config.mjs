@@ -6,6 +6,7 @@ import playformCompress from '@playform/compress';
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
+  site: 'https://www.tstfie.ch',
   integrations: [
     sanity({
       projectId: '366sb9yi',
