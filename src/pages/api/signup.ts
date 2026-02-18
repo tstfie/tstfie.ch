@@ -112,11 +112,18 @@ export const POST: APIRoute = async ({ request }) => {
       return jsonError("brevo_fetch_error", 500);
     }
 
-    if (!brevoRes.ok) {
-      const text = await brevoRes.text();
-      console.error("Brevo API failed:", brevoRes.status, text);
-      return jsonError("brevo_failed", 500);
-    }
+      if (!brevoRes.ok) {
+        const text = await brevoRes.text();
+        console.error("Brevo API failed:", brevoRes.status, text);
+        return new Response(
+          JSON.stringify({
+            brevoStatus: brevoRes.status,
+            brevoBody: text
+          }),
+          { status: brevoRes.status }
+        );
+      }
+
 
     /* ================================
        Success
