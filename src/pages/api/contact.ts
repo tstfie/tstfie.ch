@@ -1,6 +1,10 @@
 export const prerender = false;
 import type { APIRoute } from 'astro';
 
+export const config = {
+  runtime: 'edge'
+};
+
 /* ================================
    Config
 ================================ */
@@ -76,7 +80,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     /* ---- Origin check ---- */
     const origin = request.headers.get('origin');
-    if (origin !== ALLOWED_ORIGIN) {
+    if (origin && origin !== ALLOWED_ORIGIN) {
       return jsonError('Forbidden', 403);
     }
 
