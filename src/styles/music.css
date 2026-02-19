@@ -11,7 +11,7 @@
 
 .window.music .meta {
   line-height: 1.4;
-  opacity: 0.75;
+  opacity: 0.8;
 }
 
 .window.music > main,
@@ -52,7 +52,7 @@
 
 .track .meta.number {
     font-size: 14px;
-    opacity: 0.75;
+    opacity: 0.8;
     min-width: 40px;
 }
 
@@ -104,7 +104,7 @@
 
   .track .meta.number {
     font-size: 14px;
-    opacity: 0.75;
+    opacity: 0.8;
     min-width: 28px;
   }
 
