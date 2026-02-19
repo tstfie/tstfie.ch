@@ -52,14 +52,14 @@
 
 .track .meta.number {
     font-size: 14px;
-    opacity: 0.5;
+    opacity: 0.75;
     min-width: 40px;
 }
 
 .track > .meta.number:last-child {
     text-align: right;
     font-size: 13px;
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 .project-meta-wrapper {
@@ -104,12 +104,12 @@
 
   .track .meta.number {
     font-size: 14px;
-    opacity: 0.6;
+    opacity: 0.75;
     min-width: 28px;
   }
 
   .track > .meta.number:last-child {
-    font-size: 14px;
+    font-size: 13px;
     opacity: 0.6;
   }
 
