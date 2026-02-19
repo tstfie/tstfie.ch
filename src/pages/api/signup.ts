@@ -1,8 +1,6 @@
 export const prerender = false;
 import type { APIRoute } from "astro";
 
-console.log("ENV CHECK:", !!process.env.BREVO_API_KEY);
-
 /* ================================
    Helpers
 ================================= */
@@ -29,7 +27,6 @@ export const GET: APIRoute = async () => {
 };
 
 export const POST: APIRoute = async ({ request }) => {
-  console.log("POST handler reached");
   try {
     const formData = await request.formData();
 
