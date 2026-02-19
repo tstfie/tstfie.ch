@@ -1,4 +1,6 @@
 ---
+const prerender = false;
+
 import '../styles/base.css'
 import '../styles/core.css'
 import '../styles/structural.css'
@@ -24,6 +26,19 @@ import type { Image, UrlComponents } from "sanity";
 // Fetch page data
 // ------------------------------
 
+// Fetch latest music project for meta description
+const latestMusic = await sanityClient.fetch<{
+  title: string;
+  releaseDate: string;
+}>(`
+  *[_type == "work" && type in ["EP", "Single", "Mixtape"]] 
+  | order(releaseDate desc)[0]{
+    title,
+    releaseDate
+  }
+`);
+
+// Fetch all entries for audit log
 const entry = await sanityClient.fetch<{
   releaseDate: string;
   title: string;
@@ -103,6 +118,8 @@ const entry = await sanityClient.fetch<{
 // ------------------------------
 // format release date
 // ------------------------------
+
+// Format date as DD/MM/YY with leading zeros and 2-digit year
 function formatDate(dateString: string) {
   const date = new Date(dateString);
   const day = String(date.getDate()).padStart(2, "0");
@@ -111,12 +128,34 @@ function formatDate(dateString: string) {
 
   return `${day}/${month}/${year}`;
 }
+
+// Format date as (Day) of (Month), YYYY for meta description
+function formatLongDate(dateString: string) {
+  const date = new Date(dateString);
+
+  const day = date.getDate();
+  const month = date.toLocaleString("en-GB", { month: "long" });
+  const year = date.getFullYear();
+
+  const suffix =
+    day % 10 === 1 && day !== 11 ? "st" :
+    day % 10 === 2 && day !== 12 ? "nd" :
+    day % 10 === 3 && day !== 13 ? "rd" :
+    "th";
+
+  return `${day}${suffix} of ${month}, ${year}`;
+}
+
+// Meta description with latest music project if available
+const metaDescription = latestMusic
+  ? `Official archive of tstfie, displaying multidisciplinary sonic and visual work of Niklay Wiborny. Listen to the latest project, ${latestMusic.title}, released on the ${formatLongDate(latestMusic.releaseDate)}.`
+  : `Official archive of tstfie, displaying multidisciplinary sonic and visual work of Niklay Wiborny.`;
 ---
 
 <html lang ="en">
 <Head
   title="tstfie"
-  description="Niklay Wiborny, for tstfie."
+  description={metaDescription}
   canonical="https://www.tstfie.ch/"
 />
 <script type="application/ld+json">
