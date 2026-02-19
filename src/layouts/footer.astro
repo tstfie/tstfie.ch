@@ -16,6 +16,9 @@ const latestProject = await sanityClient.fetch(`
 
 const urlPrefix = latestProject.type === "Collection" ? "/designs/25-26/" : "/music/";
 const latestUrl = `${urlPrefix}${latestProject.slug}`;
+
+import  SpeedInsights  from "@vercel/speed-insights/astro"
+import Analytics from "@vercel/analytics/astro"
 ---
 
 <footer class="footer">
@@ -45,3 +48,5 @@ const latestUrl = `${urlPrefix}${latestProject.slug}`;
     </div>
   </section>
 </footer>
+<SpeedInsights/>
+<Analytics/>
