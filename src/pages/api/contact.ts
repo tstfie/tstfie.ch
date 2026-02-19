@@ -87,11 +87,12 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const formData = await request.formData();
-    const name = formData.get('name') as string;
-    const lastName = formData.get('lastName') as string;
-    const email = formData.get('email') as string;
-    const message = formData.get('message') as string;
-    const website = formData.get('website') as string;
+
+    const name = String(formData.get('name') || '');
+    const lastName = String(formData.get('lastName') || '');
+    const email = String(formData.get('email') || '');
+    const message = String(formData.get('message') || '');
+    const website = String(formData.get('website') || '');
 
     /* ---- Honeypot ---- */
     if (website) {
