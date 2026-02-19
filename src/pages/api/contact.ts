@@ -90,13 +90,11 @@ export const POST: APIRoute = async ({ request }) => {
       return jsonError('Payload too large', 413);
     }
 
-    const formData = await request.formData();
-
-    const name = String(formData.get('name') || '');
-    const lastName = String(formData.get('lastName') || '');
-    const email = String(formData.get('email') || '');
-    const message = String(formData.get('message') || '');
-    const website = String(formData.get('website') || '');
+    const data = await request.json();
+    const name = String(data.name || '').trim();
+    const email = String(data.email || '').trim();
+    const message = String(data.message || '').trim();
+    const website = String(data.website || '').trim(); // honeypot field
 
     /* ---- Honeypot ---- */
     if (website) {
