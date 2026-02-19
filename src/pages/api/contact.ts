@@ -91,10 +91,13 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const data = await request.json();
+
     const name = String(data.name || '').trim();
+    const lastName = String(data.lastName || '').trim(); // optional field
     const email = String(data.email || '').trim();
     const message = String(data.message || '').trim();
     const website = String(data.website || '').trim(); // honeypot field
+
 
     /* ---- Honeypot ---- */
     if (website) {
