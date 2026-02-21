@@ -7,7 +7,7 @@
 
   <!-- Core -->
   <url>
-    <loc>https://tstfie.ch/</loc>
+    <loc>https://www.tstfie.ch/</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.00</priority>
@@ -15,49 +15,49 @@
 
   <!-- Music (primary focus) -->
   <url>
-    <loc>https://tstfie.ch/music</loc>
+    <loc>https://www.tstfie.ch/music</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
 
   <url>
-    <loc>https://tstfie.ch/music/homes</loc>
+    <loc>https://www.tstfie.ch/music/homes</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
-    <loc>https://tstfie.ch/music/spirits</loc>
+    <loc>https://www.tstfie.ch/music/spirits</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
-    <loc>https://tstfie.ch/music/circle-of-fifths</loc>
+    <loc>https://www.tstfie.ch/music/circle-of-fifths</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
-    <loc>https://tstfie.ch/music/saintification</loc>
+    <loc>https://www.tstfie.ch/music/saintification</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
-    <loc>https://tstfie.ch/music/spirits-legacy</loc>
+    <loc>https://www.tstfie.ch/music/spirits-legacy</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>never</changefreq>
     <priority>0.70</priority>
   </url>
 
   <url>
-    <loc>https://tstfie.ch/music/snippets/attsbi</loc>
+    <loc>https://www.tstfie.ch/music/snippets/attsbi</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>never</changefreq>
     <priority>0.70</priority>
@@ -65,14 +65,14 @@
 
   <!-- Design (secondary focus) -->
   <url>
-    <loc>https://tstfie.ch/designs/25-26</loc>
+    <loc>https://www.tstfie.ch/designs/25-26</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
 
   <url>
-    <loc>https://tstfie.ch/designs/25-26/periapsis</loc>
+    <loc>https://www.tstfie.ch/designs/25-26/periapsis</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -80,28 +80,28 @@
 
   <!-- Utility / informational -->
   <url>
-    <loc>https://tstfie.ch/about</loc>
+    <loc>https://www.tstfie.ch/about</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
-    <loc>https://tstfie.ch/signup</loc>
+    <loc>https://www.tstfie.ch/signup</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
 
   <url>
-    <loc>https://tstfie.ch/contact</loc>
+    <loc>https://www.tstfie.ch/contact</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.70</priority>
   </url>
 
   <url>
-    <loc>https://tstfie.ch/privacy</loc>
+    <loc>https://www.tstfie.ch/privacy</loc>
     <lastmod>2026-01-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.55</priority>

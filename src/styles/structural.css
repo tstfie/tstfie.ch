@@ -59,7 +59,7 @@
 }
 
 .footer {
-  margin-bottom:-140px; /*/subtracting 'row-gap' from .padding class//*/
+  margin-bottom:-140px;
   padding-bottom:32px;
   column-gap: 6px;
   row-gap: 6px;

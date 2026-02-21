@@ -101,7 +101,7 @@ export const POST: APIRoute = async ({ request }) => {
             },
             includeListIds: listIds,
             templateId: 1,
-            redirectionUrl: "https://tstfie.ch/signup/success",
+            redirectionUrl: "https://www.tstfie.ch/signup/success",
           }),
         }
       );

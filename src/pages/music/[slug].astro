@@ -172,7 +172,7 @@ const musicSchema = {
   "@context": "https://schema.org",
   "@type": project.type === "Single" ? "MusicRecording" : "MusicAlbum",
   "name": project.title,
-  "url": `https://tstfie.ch/music/${project.slug?.current ?? ""}`,
+  "url": `https://www.tstfie.ch/music/${project.slug?.current ?? ""}`,
   "datePublished": project.releaseDate,
   "byArtist": { "@type": "Person", "name": "Niklay Wiborny" },
   "numTracks": project.tracklists?.[0]?.tracks?.length ?? 0,
@@ -194,7 +194,7 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
 <Head
   title={`${project.title} ${project.type} | tstfie`}
   description={metaDescription}
-  canonical={`https://tstfie.ch/music/${project.slug?.current}`}
+  canonical={`https://www.tstfie.ch/music/${project.slug?.current}`}
 />
 
 <script
@@ -212,11 +212,11 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
     <section class="window music">
       <main>
         <div class="music-hero">
-          <img src={urlForImage(project.cover).width(1200).url()} loading="lazy" alt="" class="project-cover"/>
+          <img src={urlForImage(project.cover).width(1200).url()} loading="eager" alt="" class="project-cover"/>
           <div>
             <h1>{project.title}</h1>
             <p class="meta">
-              {formatDate(project.releaseDate)} — {project.lengthDisplay}
+              {formatDate(project.releaseDate)} • {project.lengthDisplay}
             </p>
           </div>
         </div>
