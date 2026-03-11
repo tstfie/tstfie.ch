@@ -7,7 +7,7 @@ const d = new Date();
 let year = d.getFullYear();
 
 const latestProject = await sanityClient.fetch(`
-  *[_type == "work"] | order(releaseDate desc)[0]{
+  *[_type == "work" && type != "Single"] | order(releaseDate desc)[0]{
   type,
   title,
   "slug": slug.current
