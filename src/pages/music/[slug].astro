@@ -287,8 +287,8 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
             {project.archiveRole === "additional" && project.parentWork && (
             <div class ="meta">Related to {project.parentWork.title}</div>
             )}
-            <div class="meta">©{new Date(project.releaseDate).getFullYear()} Niklay Wiborny, for tstfie</div>
-            <div class="meta">℗{new Date(project.releaseDate).getFullYear()} Niklay Wiborny, for tstfie</div>
+            <div class="meta">© {new Date(project.releaseDate).getFullYear()} Niklay Wiborny, for tstfie</div>
+            <div class="meta">℗ {new Date(project.releaseDate).getFullYear()} Niklay Wiborny, for tstfie</div>
           </div>
           {(
             (additional.length > 0 && project.archiveRole !== "additional") ||
