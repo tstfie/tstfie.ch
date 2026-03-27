@@ -12,6 +12,11 @@
       "permanent": true
     },
     {
+      "source": "/the-pacing-problem",
+      "destination": "/music/the-pacing-problem",
+      "permanent": true
+    },
+    {
       "source": "/spirits",
       "destination": "/music/spirits",
       "permanent": true
