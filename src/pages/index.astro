@@ -15,6 +15,7 @@ import type { SanityDocument } from "@sanity/client";
 import PortableText from "../components/PortableText.astro";
 import { sanityClient } from "../lib/sanity";
 import { urlForImage } from "../lib/url-for-image";;
+import { marked } from "marked";
 
 import Header from '../layouts/header.astro';
 import Head from '../layouts/head.astro';
@@ -188,7 +189,9 @@ const metaDescription = latestMusic
           <article class="audit-log-entry" data-open="false">
             <header class="log-entry-preview">
               <p class="meta number">{formatDate(entry.releaseDate)}</p>
-              <h3><span class="link">{entry.title}</span></h3>
+              <div class="markdown-title">
+                <h3 class="link" set:html={marked.parseInline(entry.title)}/>
+              </div>
             </header>
             <section class="log-entry-content">
                 <p>{entry.heading && (<span class="h4" style="margin-top:4px;">{entry.heading}</span><br/>)}{entry.paragraph && (<>{entry.paragraph}</>)}</p>

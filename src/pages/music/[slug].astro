@@ -192,7 +192,7 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
 
 <html lang="en">
 <Head
-  title={`${project.title} ${project.type} | tstfie`}
+  title={`${project.title} ${project.type} - tstfie`}
   description={metaDescription}
   canonical={`https://www.tstfie.ch/music/${project.slug?.current}`}
 />
@@ -268,7 +268,7 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
                         {track.artists.map(a => a.name).join(", ")}
                       </div>
                     </div>
-                    <div class="meta number" style="margin-right:12px">
+                    <div class="meta number" style="display: flex; gap: 16px; margin-right:12px;">
                       {track.duration}
                     </div>
                   </div>

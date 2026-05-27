@@ -95,6 +95,14 @@
   background-color: #0000;
 }
 
+.markdown p {
+  margin-bottom: 1.25rem;
+}
+
+.markdown p:last-child {
+  margin-bottom: 0;
+}
+
 @media screen and (max-width: 479px) {
   .footer .cta {
     padding: 4px 12px;
