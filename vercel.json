@@ -7,6 +7,11 @@
       "permanent": true
     },
     {
+      "source": "/ostrich",
+      "destination": "/music/ostrich",
+      "permanent": true
+    },
+    {
       "source": "/spirits-legacy",
       "destination": "/music/spirits-legacy",
       "permanent": true
