@@ -7,6 +7,11 @@
       "permanent": true
     },
     {
+      "source": "/nvm-express",
+      "destination": "/music/nvm-express",
+      "permanent": true
+    },
+    {
       "source": "/ostrich",
       "destination": "/music/ostrich",
       "permanent": true
