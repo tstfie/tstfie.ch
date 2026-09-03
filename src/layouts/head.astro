@@ -2,7 +2,8 @@
 const {
     title = "tstfie",
     description = "Niklay Wiborny, for tstfie.",
-    canonical = "https://www.tstfie.ch"
+    canonical = "https://www.tstfie.ch",
+    image = "https://www.tstfie.ch/website-hero-image.webp"
 } = Astro.props;
 ---
 <head>
@@ -23,6 +24,7 @@ const {
     <meta property="og:site_name" content="tstfie.ch" />
     <meta property="og:title" content={title} />
     {/*---- Description ----*/}
+    <meta property="og:image" content={image} />
     <meta property="og:description" content={description} />
     {/*------ URL ------*/}
     <meta property="og:url" content="https://www.tstfie.ch" />
