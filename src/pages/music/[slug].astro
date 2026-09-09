@@ -198,7 +198,9 @@ const musicSchema = {
   "sameAs": project.links?.streaming?.map(s => s.url) ?? []
 };
 
-const metaDescription = `${project.title} is ${withArticle(project.type)} by Niklay Wiborny, released on ${formatDate(project.releaseDate)}. View tracklist, streaming links, and project details.`;
+const numberToWords = ('number-to-words');
+
+const metaDescription = `${project.title} is ${withArticle(project.type)} by Niklay Wiborny released on ${formatDate(project.releaseDate)}. Stream its ${project.tracklists?.[0]?.tracks?.length ?? 0} tracks and view project details.`;
 
 ---
 
