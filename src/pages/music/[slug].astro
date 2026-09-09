@@ -81,6 +81,9 @@ slug: any;
     _id,
     type,
     title,
+    artist->{
+      artist[]->{ name }
+    },
     slug,
     archiveRole,
     parentWork->{
@@ -128,6 +131,15 @@ const { project, additional } = data;
 // ------------------------------
 // 3️⃣ Helpers
 // ------------------------------
+
+// Format release date as (Month) (Year) for preview
+function formatDatePreview(dateString: string) {
+  const date = new Date(dateString);
+  const month = date.toLocaleString("en-GB", { month: "long" });
+  const year = date.getFullYear();
+
+  return `${month} ${year}`;
+}
 
 // Format release date for display
 function formatDate(dateString: string) {
@@ -192,7 +204,7 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
 
 <html lang="en">
 <Head
-  title={`${project.title} ${project.type} - tstfie`}
+  title={`Niklay Wiborny - ${project.title}`}
   description={metaDescription}
   canonical={`https://www.tstfie.ch/music/${project.slug?.current}`}
 />
@@ -215,9 +227,12 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
           <img src={urlForImage(project.cover).width(1200).url()} loading="eager" alt="" class="project-cover"/>
           <div>
             <h1>{project.title}</h1>
-            <p class="meta">
-              {formatDate(project.releaseDate)} • {project.lengthDisplay}
-            </p>
+            <div class="hflex" style="gap: 6px; flex-wrap: wrap;">
+              <p class="meta">Niklay Wiborny</p>
+              <p class="meta">•</p>
+              <p class="meta">{formatDatePreview(project.releaseDate)}</p>
+              <p class="meta">•</p>
+              <p class="meta">{project.lengthDisplay}</p></div>
           </div>
         </div>
       </main>
@@ -227,6 +242,7 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
           {project.links?.streaming && (
             <>
               <a class="cta primary dropdown stream-trigger">Stream</a>
+              <a class="cta download copy-link" data-clipboard={`https://www.tstfie.ch/music/${project.slug?.current}`}>Share</a>
 
               {project.links.streaming.map((service, index) => (
                 <a
@@ -371,6 +387,23 @@ streamGroups.forEach(group => {
     option.addEventListener('click', () => closeMenu(0));
   });
 });
+</script>
+<script>
+  document.querySelectorAll('.copy-link').forEach((link) => {
+    link.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const text = (e.currentTarget as HTMLElement).dataset.clipboard;
+      
+      if (text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          alert('Copied to clipboard!');
+        } catch (err) {
+          console.error('Failed to copy: ', err);
+        }
+      }
+    });
+  });
 </script>
 </body>
 </html>
