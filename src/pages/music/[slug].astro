@@ -207,6 +207,7 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
   title={`Niklay Wiborny - ${project.title}`}
   description={metaDescription}
   canonical={`https://www.tstfie.ch/music/${project.slug?.current}`}
+  image={urlForImage(project.cover).width(1200).url()}
 />
 
 <script
@@ -242,7 +243,7 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
           {project.links?.streaming && (
             <>
               <a class="cta primary dropdown stream-trigger">Stream</a>
-              <a class="cta download copy-link" data-clipboard={`https://www.tstfie.ch/music/${project.slug?.current}`}>Share</a>
+              <button class="cta download" id="native-share-btn" data-title={`Niklay Wiborny - ${project.title}`} data-text={`https://www.tstfie.ch/music/${project.slug?.current}`}>Share</button>
 
               {project.links.streaming.map((service, index) => (
                 <a
@@ -262,7 +263,7 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
             <a href={project.links.download} class="cta download">Download</a>
           )}
         </div>
-        {project.tracklists.map((list, discIndex) => {
+        {project.tracklists?.map((list, discIndex) => {
           const discTitle = list.title || `Disc ${discIndex + 1}`
           const hasMultipleDiscs = project.tracklists.length > 1
 
@@ -389,20 +390,30 @@ streamGroups.forEach(group => {
 });
 </script>
 <script>
-  document.querySelectorAll('.copy-link').forEach((link) => {
-    link.addEventListener('click', async (e) => {
-      e.preventDefault();
-      const text = (e.currentTarget as HTMLElement).dataset.clipboard;
-      
-      if (text) {
-        try {
-          await navigator.clipboard.writeText(text);
-          alert('Copied to clipboard!');
-        } catch (err) {
-          console.error('Failed to copy: ', err);
-        }
+  const shareBtn = document.getElementById('native-share-btn');
+
+  shareBtn?.addEventListener('click', async () => {
+    // Read data attributes from the button
+    const title = shareBtn.getAttribute('data-title') || '';
+    const text = shareBtn.getAttribute('data-text') || '';
+    const url = shareBtn.getAttribute('data-url') || window.location.href;
+
+    // Check if the browser supports the Web Share API
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: title,
+          text: text,
+          url: url,
+        });
+        console.log('Successfully shared');
+      } catch (err) {
+        console.error('Error sharing:', err);
       }
-    });
+    } else {
+      // Fallback behavior if the browser doesn't support Web Share
+      alert('Native sharing is not supported on this browser.');
+    }
   });
 </script>
 </body>
