@@ -71,6 +71,12 @@ slug: any;
     slug: { current: string };
     releaseDate: string;
   }[];
+  singles: {
+    slug: { current: string };
+    tracklists: {
+      tracks: { title: string }[];
+    }[];
+  }[];
 } | null>(`
 {
   "project": *[
@@ -117,6 +123,17 @@ slug: any;
     title,
     slug,
     releaseDate
+  },
+
+  "singles": *[
+    _type == "work" &&
+    type == "Single" &&
+    slug.current != $slug
+  ]{
+    slug,
+    tracklists[]{
+      tracks[]->{ title }
+    }
   }
 }
 `, { slug });
@@ -126,7 +143,7 @@ if (!data?.project) {
   throw new Error(`Project not found for slug: ${slug}`);
 }
 
-const { project, additional } = data;
+const { project, additional, singles } = data;
 
 // ------------------------------
 // 3️⃣ Helpers
@@ -228,8 +245,9 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
       <main>
         <div class="music-hero">
           <img src={urlForImage(project.cover).width(1200).url()} loading="eager" alt="" class="project-cover"/>
-          <div>
-            <h1>{project.title}</h1>
+          <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 2px;">
+            <p class="meta">{project.type}</p>
+            <h1 style="margin-top: -4px;">{project.title}</h1>
             <div class="hflex" style="gap: 6px; flex-wrap: wrap;">
               <p class="meta">Niklay Wiborny</p>
               <p class="meta">•</p>
@@ -275,22 +293,46 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
 
               {list.tracks.map((track, trackIndex) => {
                 const trackNumber = (trackIndex + 1).toString().padStart(2, "0")
+                const singleProject = singles.find(single =>
+                  single.tracklists.some(singleList =>
+                    singleList.tracks.some(singleTrack => singleTrack.title === track.title)
+                  )
+                )
 
                 return (
-                  <div class="track">
-                    <div class="meta number" style="margin-left:4px">
-                      {trackNumber}
-                    </div>
-                    <div class="track-title">
-                      <div class="title">{track.title}</div>
-                      <div class="meta small">
-                        {track.artists.map(a => a.name).join(", ")}
+                  singleProject ? (
+                    <a class="track" href={`/music/${singleProject.slug.current}`} style="text-decoration: none;">
+                      <div class="meta number" style="margin-left:4px">
+                        {trackNumber}
+                      </div>
+                      <div class="track-title">
+                        <div class="title hflex" style="align-items: center; gap: 12px;">
+                          {track.title} <p class="meta small">Single</p>
+                        </div>
+                        <div class="meta small">
+                          {track.artists.map(a => a.name).join(", ")}
+                        </div>
+                      </div>
+                      <div class="meta number" style="display: flex; gap: 16px; margin-right:12px;">
+                        {track.duration}
+                      </div>
+                    </a>
+                  ) : (
+                    <div class="track">
+                      <div class="meta number" style="margin-left:4px">
+                        {trackNumber}
+                      </div>
+                      <div class="track-title">
+                        <div class="title hflex">{track.title}</div>
+                        <div class="meta small">
+                          {track.artists.map(a => a.name).join(", ")}
+                        </div>
+                      </div>
+                      <div class="meta number" style="display: flex; gap: 16px; margin-right:12px;">
+                        {track.duration}
                       </div>
                     </div>
-                    <div class="meta number" style="display: flex; gap: 16px; margin-right:12px;">
-                      {track.duration}
-                    </div>
-                  </div>
+                  )
                 )
               })}
             </div>
