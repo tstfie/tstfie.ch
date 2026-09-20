@@ -111,7 +111,9 @@ slug: any;
     tracklists[]{
       title,
       tracks[]->{
+        _id,
         title,
+        versionOf,
         subtitle,
         duration,
         artists[]->{ name }
@@ -136,7 +138,11 @@ slug: any;
   ]{
     slug,
     tracklists[]{
-      tracks[]->{ title }
+      tracks[]->{
+        _id,
+        title,
+        versionOf,
+      }
     }
   }
 }
@@ -221,8 +227,57 @@ const musicSchema = {
 
 const numberToWords = ('number-to-words');
 
-const metaDescription = `${project.title} is ${withArticle(project.type)} by Niklay Wiborny released on ${formatDate(project.releaseDate)}. Stream its ${project.tracklists?.[0]?.tracks?.length ?? 0} tracks and view project details.`;
+// Construct meta description
+const artists =
+  project.artists
+    ?.map((artist: { name: string }) => artist.name)
+    .join(", ") || "Niklay Wiborny";
 
+const tracks =
+  project.tracklists?.flatMap(list => list.tracks ?? []) ?? [];
+
+const trackCount = tracks.length;
+
+// Find the album-release tracks that also have a corresponding single release.
+// The title always comes from the album tracklist, not the single.
+const singleTitles = tracks
+  .filter(track => {
+    const trackIdentity = track.versionOf?._ref ?? track._id;
+
+    return singles.some(single =>
+      single.tracklists?.some(list =>
+        list.tracks?.some(singleTrack => {
+          const singleIdentity =
+            singleTrack.versionOf?._ref ?? singleTrack._id;
+
+          return (
+            singleIdentity &&
+            trackIdentity &&
+            singleIdentity === trackIdentity
+          );
+        })
+      )
+    );
+  })
+  .map(track => track.title)
+  .filter((title, index, titles) => titles.indexOf(title) === index);
+
+  // Convert project type to sentence case (e.g. "EP" remains "EP", because it is an abbreviation, while "Single" becomes "single")
+    function sentenceCased(type: string) {
+      if (type === "EP") return "EP";
+      return type.charAt(0).toLowerCase() + type.slice(1);
+    }
+
+const singleText =
+  trackCount === 1
+    ? ` Stream ${tracks[0].title} and view project details.`
+    : singleTitles.length > 0
+      ? ` Stream ${singleTitles.join(", ")} and all ${trackCount} tracks and view project details.`
+      : ` Stream its ${trackCount} tracks and view project details.`;
+
+  const metaDescription =
+    `${project.title} is ${(withArticle(project.type))} by ${artists} released on ${formatDate(project.releaseDate)}.` +
+    singleText;
 ---
 
 <html lang="en">
@@ -293,15 +348,20 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
 
           return (
             <div class="tracklist">
-              {hasMultipleDiscs && <h3>{discTitle}</h3>}
+              {hasMultipleDiscs && <h3 style="margin-top: 24px;">{discTitle}</h3>}
+                {list.tracks.map((track, trackIndex) => {
+                  const trackNumber = (trackIndex + 1).toString().padStart(2, "0")
+                  const trackIdentity = track.versionOf?._ref ?? track._id
+                  if (!trackIdentity) return false
 
-              {list.tracks.map((track, trackIndex) => {
-                const trackNumber = (trackIndex + 1).toString().padStart(2, "0")
-                const singleProject = singles.find(single =>
-                  single.tracklists.some(singleList =>
-                    singleList.tracks.some(singleTrack => singleTrack.title === track.title)
+                  const singleProject = singles.find(single =>
+                    single.tracklists.some(singleList =>
+                      singleList.tracks.some(singleTrack => {
+                        const singleIdentity = singleTrack.versionOf?._ref ?? singleTrack._id
+                        return singleIdentity && singleIdentity === trackIdentity
+                      })
+                    )
                   )
-                )
 
                 return (
                   singleProject ? (
