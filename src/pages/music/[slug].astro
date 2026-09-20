@@ -38,6 +38,7 @@ const { slug } = Astro.params;
 
 const data = await sanityClient.fetch<{
   project: {
+[x: string]: any
     _id: string;
     title: string;
     type: string;
@@ -59,6 +60,7 @@ slug: any;
     tracklists: {
       title: string;
       tracks: {
+[x: string]: any
         title: string;
         duration: string;
         order: number;
@@ -74,7 +76,9 @@ slug: any;
   singles: {
     slug: { current: string };
     tracklists: {
-      tracks: { title: string }[];
+      tracks: {
+[x: string]: any, title: string 
+}[];
     }[];
   }[];
 } | null>(`
@@ -87,10 +91,9 @@ slug: any;
     _id,
     type,
     title,
-    artist->{
-      artist[]->{ name }
-    },
+    artists[]->{ name },
     slug,
+    versionOf,
     archiveRole,
     parentWork->{
       title,
@@ -109,6 +112,7 @@ slug: any;
       title,
       tracks[]->{
         title,
+        subtitle,
         duration,
         artists[]->{ name }
       }
@@ -249,7 +253,7 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
             <p class="meta">{project.type}</p>
             <h1 style="margin-top: -4px;">{project.title}</h1>
             <div class="hflex" style="gap: 6px; flex-wrap: wrap;">
-              <p class="meta">Niklay Wiborny</p>
+              <p class="meta">{project.artists?.map((a: { name: any }) => a.name).join(", ")}</p>
               <p class="meta">•</p>
               <p class="meta">{formatDatePreview(project.releaseDate)}</p>
               <p class="meta">•</p>
@@ -307,7 +311,8 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
                       </div>
                       <div class="track-title">
                         <div class="title hflex" style="align-items: center; gap: 12px;">
-                          {track.title} <p class="meta small">Single</p>
+                          <span class="track-name">{track.title} {track.subtitle && `— ${track.subtitle}`}</span>
+                          <p class="meta small">Single</p>
                         </div>
                         <div class="meta small">
                           {track.artists.map(a => a.name).join(", ")}
@@ -323,7 +328,9 @@ const metaDescription = `${project.title} is ${withArticle(project.type)} by Nik
                         {trackNumber}
                       </div>
                       <div class="track-title">
-                        <div class="title hflex">{track.title}</div>
+                        <div class="title hflex">
+                          <span class="track-name">{track.title} {track.subtitle && `— ${track.subtitle}`}</span>
+                        </div>
                         <div class="meta small">
                           {track.artists.map(a => a.name).join(", ")}
                         </div>

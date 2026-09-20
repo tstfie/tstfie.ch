@@ -51,7 +51,7 @@
 
 .track {
     display: grid;
-    grid-template-columns: 40px 1fr 60px;
+    grid-template-columns: 40px minmax(0, 1fr) 60px;
     align-items: center;
     padding: 14px 0;
     border-bottom: 1px solid rgba(0,0,0,1);
@@ -80,8 +80,18 @@
 }
 
 .track-title {
+  min-width: 0;
   margin-right: auto;
-  overflow:hidden;
+  overflow: hidden;
+  width: 95%;
+}
+
+.track-name {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: inherit;
 }
 
 @media screen and (max-width: 767px) {

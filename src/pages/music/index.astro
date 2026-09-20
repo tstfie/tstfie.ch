@@ -9,7 +9,7 @@ import "../../styles/responsive.css"
 import "../../styles/normalise.css"
 
 import { sanityClient } from "../../lib/sanity";
-import { urlForImage } from "../../lib/url-for-image";;
+import { urlForImage } from "../../lib/url-for-image";
 
 import Header from '../../layouts/header.astro';
 import Head from '../../layouts/head.astro';
@@ -37,7 +37,7 @@ const projects = await sanityClient.fetch<{
 `);
 
 // ------------------------------
-// Optional: format release date
+// format release date
 // ------------------------------
 function formatDate(dateString: string) {
   const date = new Date(dateString);
