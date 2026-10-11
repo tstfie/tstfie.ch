@@ -313,7 +313,7 @@ const singleText =
               <p class="meta">•</p>
               <p class="meta">{formatDatePreview(project.releaseDate)}</p>
               <p class="meta">•</p>
-              <p class="meta">{project.lengthDisplay}</p></div>
+              <p class="meta">{(project.durationMinutes ?? 0) > 1 ? `${project.durationMinutes ?? 0} minutes` : `${project.durationMinutes ?? 0} minute`}</p></div>
           </div>
         </div>
       </main>
@@ -414,7 +414,7 @@ const singleText =
         <div class="project-meta-wrapper" style="align-items:center">
           <div style="margin:0">
             <div class="meta">{formatDate(project.releaseDate)}</div>
-            <div class="meta">{project.durationMinutes} minutes, {project.durationSeconds} seconds</div>
+            <div class="meta">{(project.durationMinutes ?? 0) > 1 ? `${project.durationMinutes ?? 0} minutes` : `${project.durationMinutes ?? 0} minute`}, {(project.durationSeconds ?? 0) > 1 ? `${project.durationSeconds ?? 0} seconds` : `${project.durationSeconds ?? 0} second`}</div>
             {project.archiveRole === "additional" && project.parentWork && (
             <div class ="meta">Related to {project.parentWork.title}</div>
             )}
