@@ -115,6 +115,7 @@ slug: any;
         title,
         versionOf,
         subtitle,
+        explicit,
         duration,
         artists[]->{ name }
       }
@@ -374,7 +375,8 @@ const singleText =
                           <span class="track-name">{track.title} {track.subtitle && `— ${track.subtitle}`}</span>
                           <p class="meta small">Single</p>
                         </div>
-                        <div class="meta small">
+                        <div class="meta small" style="display: flex; align-items: center; gap: 6px;">
+                          {track.explicit && <span class="explicit"><img src="/Explicit-logo.webp" alt="Explicit" style="width: 16px; height: 16px;"/></span>}
                           {track.artists.map(a => a.name).join(", ")}
                         </div>
                       </div>
@@ -391,7 +393,8 @@ const singleText =
                         <div class="title hflex">
                           <span class="track-name">{track.title} {track.subtitle && `— ${track.subtitle}`}</span>
                         </div>
-                        <div class="meta small">
+                        <div class="meta small" style="display: flex; align-items: center; gap: 6px;">
+                          {track.explicit && <span class="explicit"><img src="/Explicit-logo.webp" alt="Explicit" style="width: 16px; height: 16px;"/></span>}
                           {track.artists.map(a => a.name).join(", ")}
                         </div>
                       </div>
