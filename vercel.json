@@ -7,6 +7,16 @@
       "permanent": true
     },
     {
+      "source": "/the-sun-is-not-rising",
+      "destination": "/music/the-sun-is-not-rising",
+      "permanent": true
+    },
+    {
+      "source": "/eavesdropping",
+      "destination": "/music/eavesdropping",
+      "permanent": true
+    },
+    {
       "source": "/nvm-express",
       "destination": "/music/nvm-express",
       "permanent": true
