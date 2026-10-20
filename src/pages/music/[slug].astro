@@ -10,6 +10,7 @@ import "../../styles/normalise.css"
 
 import { sanityClient } from "../../lib/sanity";
 import { urlForImage } from "../../lib/url-for-image";
+import { marked } from "marked";
 
 import Header from '../../layouts/header.astro';
 import Head from '../../layouts/head.astro';
@@ -330,10 +331,10 @@ const singleText =
         <section class="section">
           <div class="project-description">
             <div class="truncated">
-              <p> {truncateDescription(project.description, 160)} <a href="#" class="toggle-description">More</a></p>
+              <p set:html={marked.parseInline(truncateDescription(project.description, 160))}></p> <p><a href="#" class="toggle-description">More</a></p>
             </div>
             <div class="full" style="display: none;">
-              <p>{project.description} <a href="#" class="toggle-description">Less</a></p>
+              <p set:html={marked.parseInline(project.description)}></p> <p><a href="#" class="toggle-description">Less</a></p>
             </div>
           </div>
         </section>
