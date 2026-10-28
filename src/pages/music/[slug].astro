@@ -244,6 +244,8 @@ const artists =
     ?.map((artist: { name: string }) => artist.name)
     .join(", ") || "Niklay Wiborny";
 
+const pageTitle = `${project.artists?.map((artist: { name: string }) => artist.name).join(", ")} - ${project.title}`;
+
 const tracks =
   project.tracklists?.flatMap(list => list.tracks ?? []) ?? [];
 
@@ -293,7 +295,7 @@ const singleText =
 
 <html lang="en">
 <Head
-  title={`${project.artists?.map((a: { name: any }) => a.name).join(", ")} - ${project.title}`}
+  title={pageTitle}
   description={metaDescription}
   canonical={`https://www.tstfie.ch/music/${project.slug?.current}`}
   image={urlForImage(project.cover).width(1200).url()}
@@ -357,7 +359,7 @@ const singleText =
               ))}
             </>
           )}
-          <button class="cta download" id="native-share-btn" data-title={`Niklay Wiborny - ${project.title}`} data-text={`https://www.tstfie.ch/music/${project.slug?.current}`}>Share</button>
+          <button class="cta download" id="native-share-btn" data-title={pageTitle} data-text={`https://www.tstfie.ch/music/${project.slug?.current}`}>Share</button>
           {project.links?.download && (
             <a href={project.links.download} class="cta download">Download</a>
           )}
