@@ -109,7 +109,7 @@ const entry = await sanityClient.fetch<{
       linkTitle,
       select(
         work->type == "Collection" => "View collection",
-        work->type in ["Mixtape", "EP", "Single"] => "View project",
+        work->type in ["Mixtape", "EP", "Compilation", "Single"] => "View project",
         true => null,
       ),
       )
